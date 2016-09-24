@@ -29,7 +29,7 @@ App.data = {
         {
             featuredImage : "images/article_placeholder_2.jpg",
             title : "What Do You Get When You Multiply Six by Nine?",
-            blurb : "Spaaaaace",
+            blurb : "SpaaaAaace",
             impressions : 42
         }
     ]
@@ -42,6 +42,24 @@ App.build = function() {
     return output;
 }
 
+App.fHideEl = function($el) {
+    return (function() {
+        $el.addClass("hidden");
+    });
+}
+
+App.showPopUp = function() {
+    $("#popUp").removeClass("loader hidden");
+};
+
 $("document").ready(function() {
-  $("body").append(App.build);
+    let $popUp = $("#popUp");
+
+    $popUp.removeClass("hidden");
+    $("body").append(App.build);
+    window.setTimeout(App.fHideEl($popUp), 2000);
+
+    $(".article").on('click', function(event) {
+        App.showPopUp();
+    })
 });

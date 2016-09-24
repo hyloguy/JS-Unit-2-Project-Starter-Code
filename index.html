@@ -18,6 +18,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <!--HEADER-->
         <header>
           <section class="container">
             <a href="#"><h1>Feedr</h1></a>
@@ -39,6 +40,8 @@
             <div class="clearfix"></div>
           </section>
         </header>
+        
+        <!--POPUP: Used for both the loader and the article preview-->
         <div id="popUp" class="loader hidden">
           <a href="#" class="closePopUp">X</a>
           <div class="container">
@@ -50,6 +53,8 @@
           </div>
         </div>
 
+        <!--TEMPLATES-->
+        <!--Main article list view-->
         <script type="text/x-handlebars-template" id="articleTemplate">
           <section id="main" class="container">
             {{#each articles}}
@@ -69,6 +74,8 @@
             {{/each}}
           </section>
         </script>
+
+        <!--EXTERNAL SCRIPTS-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
