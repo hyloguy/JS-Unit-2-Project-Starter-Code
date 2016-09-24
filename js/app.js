@@ -36,9 +36,8 @@ App.data = {
 };
 
 App.build = function() {
-    var source = $("#articleTemplate").html();
-    var templateProcessor = Handlebars.compile(source);
-    var output = templateProcessor(App.data);
+    var articlesListTemplate = Handlebars.templates['articlesList'];
+    var output = articlesListTemplate(App.data);
     return output;
 }
 
@@ -57,7 +56,7 @@ $("document").ready(function() {
 
     $popUp.removeClass("hidden");
     $("body").append(App.build);
-    window.setTimeout(App.fHideEl($popUp), 2000);
+    window.setTimeout(App.fHideEl($popUp), 1000);
 
     $(".article").on('click', function(event) {
         App.showPopUp();
