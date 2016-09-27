@@ -73,5 +73,9 @@ $("document").ready(function() {
 
     $(".article").on('click', function(event) {
         App.showPopUp($popUp);
-    })
+    });
+
+    $(".closePopUp").on('click', function(event) {
+        $popUp.addClass("hidden");
+    });
 });
