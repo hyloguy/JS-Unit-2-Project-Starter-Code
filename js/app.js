@@ -16,7 +16,6 @@ $(document).ready(function() {
     var populateListTemplate = Handlebars.templates['articlesList'];
     var populatePreviewTemplate = Handlebars.templates['preview'];
 
-    // let practiceQuery = "https://content.guardianapis.com/search?api-key=249f8a9f-740e-45d6-be1e-fb3baef3dfd1";
     var practiceQuery = "https://content.guardianapis.com/us?show-most-viewed=true&show-fields=all&api-key=249f8a9f-740e-45d6-be1e-fb3baef3dfd1";
     $.get(practiceQuery, function(r) {
         console.log(r);
@@ -44,12 +43,9 @@ $(document).ready(function() {
     
     // Use event delegation to handle clicks on items!
     $main.on('click', 'article', function(event) {
-        console.log(`item ${$(this).attr('id')} clicked on`);
-        var previd = '#p' + $(this).attr('id').slice(1);
-        console.log(`Displaying preview ${previd}`)
-        var $preview = $(previd);
         $("#popUp > div").addClass('hidden');
-        $preview.removeClass('hidden');
+        var $previewDiv = $('#p' + $(this).attr('id').slice(1));
+        $previewDiv.removeClass('hidden');
         $popUp.removeClass("loader hidden");
     });
 
