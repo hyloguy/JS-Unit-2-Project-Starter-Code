@@ -4,11 +4,37 @@
   GA SF JS3
 */
 
-var App = {};
+var App = new Object();
 
 App.data = {
     articles : []
 };
+
+App.apis = [
+    {
+        query: "https://content.guardianapis.com/us?show-most-viewed=true&show-fields=all&api-key=249f8a9f-740e-45d6-be1e-fb3baef3dfd1",
+        fetch: function(r) {
+            console.log(r);
+            var arr = r.response.mostViewed;
+            for (var i = 0, len = arr.length; i < len; i++) {
+                let item = {
+                    source: arr[i].fields.publication,
+                    id: i,
+                    articleid: `a${i}`,
+                    previewid: `p${i}`,
+                    featuredImage : arr[i].fields.thumbnail,
+                    title : arr[i].webTitle,
+                    category : arr[i].sectionName,
+                    impressions : arr[i].fields.wordcount,
+                    url: arr[i].fields.shortUrl,
+                    ptext: arr[i].fields.trailText.replace(/\<br\>/g,".")
+                };
+                App.data.articles.push(item);
+            }
+        }
+    }
+];
+
 
 $(document).ready(function() {
     var $popUp = $("#popUp");
@@ -16,28 +42,10 @@ $(document).ready(function() {
     var populateListTemplate = Handlebars.templates['articlesList'];
     var populatePreviewTemplate = Handlebars.templates['preview'];
 
-    var practiceQuery = "https://content.guardianapis.com/us?show-most-viewed=true&show-fields=all&api-key=249f8a9f-740e-45d6-be1e-fb3baef3dfd1";
-    $.get(practiceQuery, function(r) {
-        console.log(r);
-        App.data.articles = [];
-        var sourceArray = r.response.mostViewed;
-        for (var i = 0, len = sourceArray.length; i < len; i++) {
-            let item = {
-                source: "The Guardian",
-                id: i,
-                articleid: `a${i}`,
-                previewid: `p${i}`,
-                featuredImage : sourceArray[i].fields.thumbnail,
-                title : sourceArray[i].webTitle,
-                category : sourceArray[i].sectionName,
-                impressions : sourceArray[i].fields.wordcount,
-                url: sourceArray[i].fields.shortUrl,
-                ptext: sourceArray[i].fields.trailText.replace(/\<br\>/g,".")
-            };
-            App.data.articles.push(item);
-        }
-    }).done(populateAndShowViews);
-    
+    App.apis.forEach(function(apiObj) {
+        $.get(apiObj.query, apiObj.fetch).done(populateAndShowViews);
+    });
+
     // Use event delegation to handle clicks on items!
     $main.on('click', 'article', function(event) {
         $("#popUp > div").addClass('hidden');
