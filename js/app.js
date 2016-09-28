@@ -34,12 +34,9 @@ $(document).ready(function() {
                 url: sourceArray[i].fields.shortUrl,
                 ptext: sourceArray[i].fields.trailText.replace(/\<br\>/g,".")
             };
-            $popUp.append(populatePreviewTemplate(item));
-            $main.append(populateListTemplate(item));
             App.data.articles.push(item);
         }
-        $popUp.addClass("hidden");
-    });
+    }).done(populateAndShowViews);
     
     // Use event delegation to handle clicks on items!
     $main.on('click', 'article', function(event) {
@@ -52,4 +49,12 @@ $(document).ready(function() {
     $(".closePopUp").on('click', function(event) {
         $popUp.addClass("hidden");
     });
+
+    function populateAndShowViews() {
+        App.data.articles.forEach(function(item) {
+            $popUp.append(populatePreviewTemplate(item));
+            $main.append(populateListTemplate(item));
+        });
+        $popUp.addClass("hidden");
+    }
 });
