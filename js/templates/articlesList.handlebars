@@ -1,17 +1,13 @@
-<section id="main" class="container">
-    {{#each articles}}
-        <article class="article">
-        <section class="featuredImage">
-            <img src="{{featuredImage}}" alt="" />
-        </section>
-        <section class="articleContent">
-            <a href="#"><h3>{{title}}</h3></a>
-            <h6>{{blurb}}</h6>
-        </section>
-        <section class="impressions">
-            {{impressions}}
-        </section>
-        <div class="clearfix"></div>
-        </article>
-    {{/each}}
-</section>
+<article id={{articleid}} class="article">
+    <section class="featuredImage">
+        <img src="{{featuredImage}}" alt="" />
+    </section>
+    <section class="articleContent">
+        <a href="#"><h3>{{title}}</h3></a>
+        <h6>{{category}}</h6>
+    </section>
+    <section class="impressions">
+        {{impressions}}
+    </section>
+    <div class="clearfix"></div>
+</article>
