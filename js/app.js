@@ -32,6 +32,33 @@ App.apis = [
                 App.data.articles.push(item);
             }
         }
+    },
+    {
+        query: "https://newsapi.org/v1/articles?source=hacker-news&sortBy=latest&apiKey=1bc3969ac33a44e1be2cb27c03dc315f",
+        fetch: function(r) {
+            console.log(r);
+            var arr = r.articles;
+            for (var i = 0, len = arr.length; i < len; i++) {
+                let item = {
+                    url: arr[i].url,
+                    source: (function(url) {
+                        let a = document.createElement('a');
+                        a.setAttribute('href', url);
+                        return a.hostname;
+                    })(arr[i].url),
+                    id: i,
+                    articleid: `a${i}`,
+                    previewid: `p${i}`,
+                    featuredImage : arr[i].urlToImage,
+                    title : arr[i].title,
+                    category : r.source,
+                    impressions : r.status,
+                    ptext: arr[i].description,
+                    pubdate: arr[i].publishedAt
+                };
+                App.data.articles.push(item);
+            }
+        }
     }
 ];
 
