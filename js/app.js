@@ -111,6 +111,7 @@ $(document).ready(function() {
     // (cribbed from http://stackoverflow.com/questions/18424712/how-to-loop-through-ajax-requests-inside-a-jquery-when-then-statment)
     var deferreds = [];
     $.each(App.apis, function(index, apiObj) {
+        $("nav > ul > li > ul").append(`<li><a href="#">${apiObj.apisource}</a></li>`);
         deferreds.push(
             $.get(apiObj.query, function(response) {
                 apiObj.fetch(index, response);
