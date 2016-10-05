@@ -12,6 +12,7 @@ App.data = {
 
 App.apis = [
     {
+        apisource: "The Guardian",
         query: "https://content.guardianapis.com/us?show-most-viewed=true&show-fields=all&api-key=249f8a9f-740e-45d6-be1e-fb3baef3dfd1",
         fetch: function(apiIndex, r) {
             console.log(r);
@@ -36,6 +37,7 @@ App.apis = [
         }
     },
     {
+        apisource: "Hacker News",
         query: "https://newsapi.org/v1/articles?source=hacker-news&sortBy=top&apiKey=1bc3969ac33a44e1be2cb27c03dc315f",
         fetch: function(apiIndex, r) {
             console.log(r);
@@ -55,7 +57,7 @@ App.apis = [
                     featuredImage : arr[i].urlToImage,
                     title : arr[i].title,
                     category : `from Hacker News on ${dateObj.toDateString()}`,
-                    impressions : r.status,
+                    impressions : Math.floor(Math.random() * 100),
                     ptext: arr[i].description,
                     pubdate: dateObj
                 };
@@ -64,6 +66,7 @@ App.apis = [
         }
     },
     {
+        apisource: "The Daily WTF",
         query: "https://accesscontrolalloworiginall.herokuapp.com/http://thedailywtf.com/api/articles/recent/15",
         fetch: function(apiIndex, r) {
             console.log(r);
