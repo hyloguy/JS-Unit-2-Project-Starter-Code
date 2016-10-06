@@ -133,6 +133,10 @@ $(document).ready(function() {
         $popUp.removeClass("loader hidden");
     });
 
+    $("#search").on('click', function(event) {
+        $( this ).toggleClass( "active" );
+    })
+
     $dropDown.on('click', 'li', function(event) {
         var chosenApi = $(this).text();
         $("nav > ul > li > a > span").text(chosenApi);
