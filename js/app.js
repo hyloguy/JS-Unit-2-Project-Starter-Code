@@ -104,6 +104,7 @@ $(document).ready(function() {
     var $popUp = $("#popUp");
     var $main = $("#main");
     var $dropDown = $("nav > ul > li > ul");
+    var $homeLogo = $("header > section > a");
     var populateListTemplate = Handlebars.templates['articlesList'];
     var populatePreviewTemplate = Handlebars.templates['preview'];
 
@@ -143,6 +144,11 @@ $(document).ready(function() {
             }
         })
     });
+
+    $homeLogo.on('click', function(event) {
+        $("nav > ul > li > a > span").text("All");
+        $( ".article" ).removeClass('hidden');
+    })
 
     $(".closePopUp").on('click', function(event) {
         $popUp.addClass("hidden");
