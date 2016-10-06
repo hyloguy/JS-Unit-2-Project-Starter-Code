@@ -20,6 +20,7 @@ App.apis = [
             for (var i = 0, len = arr.length; i < len; i++) {
                 let dateObj = new Date(arr[i].webPublicationDate);
                 let item = {
+                    apisource: "The Guardian",
                     source: arr[i].fields.publication,
                     id: i,
                     articleid: `a_${apiIndex}_${i}`,
@@ -46,6 +47,7 @@ App.apis = [
                 let dateObj = (arr[i].publishedAt) ? new Date(arr[i].publishedAt) : new Date();
                 let item = {
                     url: arr[i].url,
+                    apisource: "Hacker News",
                     source: (function(url) {
                         let a = document.createElement('a');
                         a.setAttribute('href', url);
@@ -78,6 +80,7 @@ App.apis = [
                 })(arr[i].RssTitle);
                 let dateObj = new Date(arr[i].ISODate);
                 let item = {
+                    apisource: "The Daily WTF",
                     source: "The Daily WTF",
                     id: i,
                     articleid: `a_${apiIndex}_${i}`,
@@ -100,6 +103,7 @@ App.apis = [
 $(document).ready(function() {
     var $popUp = $("#popUp");
     var $main = $("#main");
+    var $dropDown = $("nav > ul > li > ul");
     var populateListTemplate = Handlebars.templates['articlesList'];
     var populatePreviewTemplate = Handlebars.templates['preview'];
 
@@ -111,7 +115,7 @@ $(document).ready(function() {
     // (cribbed from http://stackoverflow.com/questions/18424712/how-to-loop-through-ajax-requests-inside-a-jquery-when-then-statment)
     var deferreds = [];
     $.each(App.apis, function(index, apiObj) {
-        $("nav > ul > li > ul").append(`<li><a href="#">${apiObj.apisource}</a></li>`);
+        $dropDown.append(`<li><a href="#">${apiObj.apisource}</a></li>`);
         deferreds.push(
             $.get(apiObj.query, function(response) {
                 apiObj.fetch(index, response);
@@ -126,6 +130,18 @@ $(document).ready(function() {
         var $previewDiv = $('#p' + $(this).attr('id').slice(1));
         $previewDiv.removeClass('hidden');
         $popUp.removeClass("loader hidden");
+    });
+
+    $dropDown.on('click', 'li', function(event) {
+        var chosenApi = $(this).text();
+        $("nav > ul > li > a > span").text(chosenApi);
+        $( ".article" ).each(function () {
+            if ($( this ).attr("data-apisource") == chosenApi) {
+                $( this ).removeClass('hidden');
+            } else {
+                $( this ).addClass('hidden');
+            }
+        })
     });
 
     $(".closePopUp").on('click', function(event) {
